@@ -1,5 +1,7 @@
-FROM ubuntu:16.04
+FROM phusion/baseimage:latest
 MAINTAINER lebedevsky <an.lebedevsky@gmail.com>
+
+CMD ["/sbin/my_init"]
 
 ARG timezone=Europe/Moscow
 ENV TERM xterm
@@ -27,5 +29,9 @@ RUN apt-get -y install \
     curl \
     git
 
+RUN apt-get update && apt-get upgrade 
+
 # clean
 RUN apt-get autoclean
+
+RUN apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
